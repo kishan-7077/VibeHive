@@ -1,0 +1,42 @@
+export const postsData = [
+	{
+		id: "1",
+		username: "john_doe",
+		image: "https://source.unsplash.com/random/400x400/?sunset",
+		likes: 120,
+		caption: "Enjoying the sunset! 🌅",
+		profileImage: "https://randomuser.me/api/portraits/men/1.jpg",
+	},
+	{
+		id: "2",
+		username: "anna_smith",
+		image: "https://source.unsplash.com/random/400x400/?brunch,food",
+		likes: 200,
+		caption: "Delicious brunch with friends! 🥞🍓",
+		profileImage: "https://randomuser.me/api/portraits/women/2.jpg",
+	},
+	{
+		id: "3",
+		username: "mike_adventures",
+		image: "https://source.unsplash.com/random/400x400/?hiking,mountain",
+		likes: 350,
+		caption: "Hiking to the top! 🏞️",
+		profileImage: "https://randomuser.me/api/portraits/men/3.jpg",
+	},
+	{
+		id: "4",
+		username: "lily_traveler",
+		image: "https://source.unsplash.com/random/400x400/?beach,travel",
+		likes: 450,
+		caption: "Relaxing at the beach! 🏖️",
+		profileImage: "https://randomuser.me/api/portraits/women/4.jpg",
+	},
+	{
+		id: "5",
+		username: "james_photography",
+		image: "https://source.unsplash.com/random/400x400/?photography,city",
+		likes: 300,
+		caption: "Capturing the city lights! 🌃",
+		profileImage: "https://randomuser.me/api/portraits/men/5.jpg",
+	},
+];
