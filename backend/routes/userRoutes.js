@@ -40,6 +40,7 @@ const authenticateToken = (req, res, next) => {
 		if (err) return res.status(403).json({ message: "Invalid token" });
 
 		req.user = user;
+
 		next();
 	});
 };
@@ -229,7 +230,7 @@ router.get("/profile", authenticateToken, async (req, res) => {
 			return res.status(404).json({ message: "User not found" });
 		}
 
-		const posts = await Post.find({ user: req.user._id });
+		const posts = await Post.find({ user: user });
 		const followerCount = user.followers.length;
 		const followingCount = user.following.length;
 

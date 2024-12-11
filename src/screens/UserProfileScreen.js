@@ -30,12 +30,18 @@ const UserProfileScreen = ({ route }) => {
 		const fetchPosts = async () => {
 			try {
 				const response = await axios.get(
-					`http://192.168.1.3:5000/posts/get-posts?userId=${userId}`
+					`http://192.168.1.15:5000/posts/get-posts?userId=${userId}`
 				);
-				setPosts(response.data);
+				if (response.data.message) {
+					setPosts([]); // No posts found
+				} else {
+					setPosts(response.data); // Set posts from response
+				}
 			} catch (err) {
-				console.error("Error fetching posts:", err);
-				setError("Failed to fetch posts.");
+				// console.error("Error fetching posts:", err);
+				console.log("No posts made by user");
+
+				// setError("Failed to fetch posts.");
 			} finally {
 				setLoading(false);
 			}
@@ -52,7 +58,7 @@ const UserProfileScreen = ({ route }) => {
 				const token = await AsyncStorage.getItem("token");
 				try {
 					const response = await axios.get(
-						`http://192.168.1.3:5000/users/follow-status/${userId}`,
+						`http://192.168.1.15:5000/users/follow-status/${userId}`,
 						{
 							headers: {
 								Authorization: `Bearer ${token}`,
@@ -77,8 +83,8 @@ const UserProfileScreen = ({ route }) => {
 	const handleFollowUnfollow = async () => {
 		try {
 			const url = isFollowing
-				? `http://192.168.1.3:5000/users/unfollow/${userId}`
-				: `http://192.168.1.3:5000/users/follow/${userId}`;
+				? `http://192.168.1.15:5000/users/unfollow/${userId}`
+				: `http://192.168.1.15:5000/users/follow/${userId}`;
 
 			const token = await AsyncStorage.getItem("token");
 
@@ -109,6 +115,9 @@ const UserProfileScreen = ({ route }) => {
 		<Image source={{ uri: item.image }} style={styles.gridImage} />
 	);
 
+	// Divider component for FlatList
+	const renderSeparator = () => <View style={styles.separator} />;
+
 	return (
 		<SafeAreaView style={styles.container}>
 			{loading ? (
@@ -124,7 +133,9 @@ const UserProfileScreen = ({ route }) => {
 						/>
 						<View style={styles.userInfoContainer}>
 							<View style={styles.infoBlock}>
-								<Text style={styles.infoNumber}>{posts.length}</Text>
+								<Text style={styles.infoNumber}>
+									{posts.length === 0 ? 0 : posts.length}
+								</Text>
 								<Text style={styles.infoLabel}>Posts</Text>
 							</View>
 							<View style={styles.infoBlock}>
@@ -153,13 +164,18 @@ const UserProfileScreen = ({ route }) => {
 						</TouchableOpacity>
 					</View>
 
-					<FlatList
-						data={posts}
-						renderItem={renderPost}
-						keyExtractor={(item) => item._id}
-						numColumns={NUM_COLUMNS}
-						showsVerticalScrollIndicator={false}
-					/>
+					{posts.length === 0 ? (
+						<Text style={styles.noPostsText}>No posts made by user.</Text>
+					) : (
+						<FlatList
+							data={posts}
+							renderItem={renderPost}
+							keyExtractor={(item) => item._id}
+							numColumns={NUM_COLUMNS}
+							showsVerticalScrollIndicator={false}
+							ItemSeparatorComponent={renderSeparator} // Add divider between items
+						/>
+					)}
 				</>
 			)}
 		</SafeAreaView>
@@ -227,9 +243,20 @@ const styles = StyleSheet.create({
 		height: width / NUM_COLUMNS - 2,
 		margin: 1,
 	},
+	separator: {
+		width: "100%",
+		height: 1,
+		backgroundColor: "#ddd",
+	},
 	error: {
 		textAlign: "center",
 		color: "red",
+		marginTop: 20,
+	},
+	noPostsText: {
+		textAlign: "center",
+		color: "#888",
+		fontSize: 16,
 		marginTop: 20,
 	},
 });

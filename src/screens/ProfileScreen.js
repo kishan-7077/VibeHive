@@ -25,6 +25,9 @@ const ProfileScreen = () => {
 				try {
 					const data = await getUser();
 					const userPosts = await getPosts();
+					// console.log(data);
+					// console.log(userPosts);
+
 					setUserData(data);
 					setPosts(userPosts);
 				} catch (error) {

@@ -25,7 +25,7 @@ const SearchScreen = ({ navigation }) => {
 	const fetchUsers = async () => {
 		setLoading(true);
 		try {
-			const response = await axios.get("http://192.168.1.3:5000/users/", {
+			const response = await axios.get("http://192.168.1.15:5000/users/", {
 				headers: {
 					Authorization: `Bearer ${await AsyncStorage.getItem("token")}`,
 				},
@@ -74,8 +74,8 @@ const SearchScreen = ({ navigation }) => {
 	const handleFollowUnfollow = async (userId, isFollowing) => {
 		try {
 			const url = isFollowing
-				? `http://192.168.1.3:5000/users/unfollow/${userId}`
-				: `http://192.168.1.3:5000/users/follow/${userId}`;
+				? `http://192.168.1.15:5000/users/unfollow/${userId}`
+				: `http://192.168.1.315:5000/users/follow/${userId}`;
 
 			const token = await AsyncStorage.getItem("token");
 

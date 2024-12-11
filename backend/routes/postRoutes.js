@@ -33,7 +33,7 @@ router.get("/get-posts", async (req, res) => {
 		// If there are posts, return them
 		res.json(posts);
 	} catch (error) {
-		res.json({ message: "Error loading posts data" });
+		res.status(500).json({ message: "Error loading posts data" });
 	}
 });
 

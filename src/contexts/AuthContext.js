@@ -97,7 +97,7 @@ export const AuthProvider = ({ children }) => {
 			);
 
 			const posts = response.data.posts;
-			// console.log(response.data);
+			console.log(response.data);
 
 			return posts;
 		} catch (error) {
@@ -111,7 +111,7 @@ export const AuthProvider = ({ children }) => {
 
 	// Signup function
 	const signup = async (name, email, password, profileImage) => {
-		// console.log(profileImage);
+		console.log(profileImage);
 
 		try {
 			await axios.post("http://192.168.1.15:5000/users/signup", {

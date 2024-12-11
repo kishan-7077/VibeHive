@@ -37,7 +37,7 @@ const ChatScreen = ({ route }) => {
 		return () => {
 			socket.off("receive_message");
 		};
-	}, [currentUserId, userId]);
+	}, [currentUserId, userId, messages]);
 
 	const sendMessage = () => {
 		if (message.trim()) {

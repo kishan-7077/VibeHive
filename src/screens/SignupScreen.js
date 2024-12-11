@@ -40,7 +40,6 @@ const SignupScreen = () => {
 	const { signup, login } = useAuth(); // Assuming these methods exist in the AuthContext
 	const [loading, setLoading] = useState(false);
 	const [image, setImage] = useState(null); // State for storing the selected image
-	const [profileImageUrl, setProfileImageUrl] = useState(null);
 
 	// Function to pick an image from the gallery
 	const pickImage = async () => {
@@ -66,11 +65,11 @@ const SignupScreen = () => {
 	};
 
 	// Function to handle signup
-
 	const handleSignup = async (values) => {
 		setLoading(true);
 		try {
 			// Prepare image upload if there's an image
+			let profileImageUrl = null;
 			if (image) {
 				const formData = new FormData();
 				formData.append("profileImage", {
@@ -80,7 +79,6 @@ const SignupScreen = () => {
 				});
 
 				// Upload the image to your server or cloud service here
-				// Example: Upload image to Cloudinary (or your backend)
 				const imageResponse = await axios.post(
 					"http://192.168.1.15:5000/users/upload-profile-image",
 					formData,
@@ -92,9 +90,7 @@ const SignupScreen = () => {
 				);
 
 				const imageData = imageResponse.data;
-				// console.log(imageData);
-				// Assuming response contains image URL
-				setProfileImageUrl(imageData.imageUrl); // Get the URL from the response
+				profileImageUrl = imageData.imageUrl; // Get the URL from the response
 			}
 
 			// Perform signup with profileImageUrl
