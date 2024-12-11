@@ -210,6 +210,3 @@ If you would like to contribute to the project, please follow these steps:
 4. Push to your branch (`git push origin feature-branch`). 📤
 5. Create a new Pull Request. 🔀
 
-## License 📜
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. ⚖️
