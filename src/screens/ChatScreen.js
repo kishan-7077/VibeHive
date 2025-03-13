@@ -10,6 +10,7 @@ import {
 import socket from "../utils/socket";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
+import { API_URL } from "@env";
 
 const ChatScreen = ({ route }) => {
 	const { userId, userName, currentUserId } = route.params;
@@ -20,7 +21,7 @@ const ChatScreen = ({ route }) => {
 		const fetchMessages = async () => {
 			try {
 				const response = await axios.get(
-					`http://192.168.1.15:5000/messages/${currentUserId}/${userId}`
+					`${API_URL}/messages/${currentUserId}/${userId}`
 				);
 				setMessages(response.data);
 			} catch (error) {

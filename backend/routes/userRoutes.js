@@ -132,7 +132,9 @@ router.post("/signup", async (req, res) => {
 			.status(201)
 			.json({ message: "User successfully created. Verification Email sent" });
 	} catch (error) {
-		res.status(500).json({ message: "Error signing up", error: error.message });
+		res
+			.status(500)
+			.json({ message: "Error signing up backend", error: error.message });
 	}
 });
 

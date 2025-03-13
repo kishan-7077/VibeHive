@@ -1,5 +1,6 @@
 import { io } from "socket.io-client";
+import { API_URL } from "@env";
 
-const socket = io("http://192.168.1.15:5000"); // Replace with your server IP or URL
+const socket = io(`${API_URL}`); // Replace with your server IP or URL
 
 export default socket;

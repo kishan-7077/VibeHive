@@ -13,6 +13,7 @@ import {
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { API_URL } from "@env";
 
 const CommentsScreen = ({ route }) => {
 	const { postId } = route.params; // Get the post ID passed via navigation
@@ -24,9 +25,7 @@ const CommentsScreen = ({ route }) => {
 	useEffect(() => {
 		const fetchComments = async () => {
 			try {
-				const response = await axios.get(
-					`http://192.168.1.3:5000/posts/get-posts`
-				);
+				const response = await axios.get(`${API_URL}/posts/get-posts`);
 				const post = response.data.find((p) => p._id === postId);
 				if (post) {
 					setComments(post.comments);
@@ -47,14 +46,11 @@ const CommentsScreen = ({ route }) => {
 				return alert("You must be logged in to add a comment.");
 			}
 
-			const response = await axios.post(
-				"http://192.168.1.3:5000/posts/add-comment",
-				{
-					postId,
-					user: user._id,
-					comment: newComment,
-				}
-			);
+			const response = await axios.post(`${API_URL}/posts/add-comment`, {
+				postId,
+				user: user._id,
+				comment: newComment,
+			});
 
 			if (response.data.post) {
 				setComments(response.data.post.comments);

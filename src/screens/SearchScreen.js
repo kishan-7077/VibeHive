@@ -14,6 +14,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback } from "react";
+import { API_URL } from "@env";
 
 const SearchScreen = ({ navigation }) => {
 	const [query, setQuery] = useState("");
@@ -25,7 +26,7 @@ const SearchScreen = ({ navigation }) => {
 	const fetchUsers = async () => {
 		setLoading(true);
 		try {
-			const response = await axios.get("http://192.168.1.15:5000/users/", {
+			const response = await axios.get(`${API_URL}/users/`, {
 				headers: {
 					Authorization: `Bearer ${await AsyncStorage.getItem("token")}`,
 				},
@@ -74,8 +75,8 @@ const SearchScreen = ({ navigation }) => {
 	const handleFollowUnfollow = async (userId, isFollowing) => {
 		try {
 			const url = isFollowing
-				? `http://192.168.1.15:5000/users/unfollow/${userId}`
-				: `http://192.168.1.315:5000/users/follow/${userId}`;
+				? `${API_URL}/users/unfollow/${userId}`
+				: `${API_URL}/users/follow/${userId}`;
 
 			const token = await AsyncStorage.getItem("token");
 

@@ -13,6 +13,7 @@ import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native"; // Import useFocusEffect
+import { API_URL } from "@env";
 
 const { width } = Dimensions.get("window");
 const NUM_COLUMNS = 3; // For a 3-column grid layout
@@ -30,7 +31,7 @@ const UserProfileScreen = ({ route }) => {
 		const fetchPosts = async () => {
 			try {
 				const response = await axios.get(
-					`http://192.168.1.15:5000/posts/get-posts?userId=${userId}`
+					`${API_URL}/posts/get-posts?userId=${userId}`
 				);
 				if (response.data.message) {
 					setPosts([]); // No posts found
@@ -58,7 +59,7 @@ const UserProfileScreen = ({ route }) => {
 				const token = await AsyncStorage.getItem("token");
 				try {
 					const response = await axios.get(
-						`http://192.168.1.15:5000/users/follow-status/${userId}`,
+						`${API_URL}/users/follow-status/${userId}`,
 						{
 							headers: {
 								Authorization: `Bearer ${token}`,
@@ -83,8 +84,8 @@ const UserProfileScreen = ({ route }) => {
 	const handleFollowUnfollow = async () => {
 		try {
 			const url = isFollowing
-				? `http://192.168.1.15:5000/users/unfollow/${userId}`
-				: `http://192.168.1.15:5000/users/follow/${userId}`;
+				? `${API_URL}/users/unfollow/${userId}`
+				: `${API_URL}/users/follow/${userId}`;
 
 			const token = await AsyncStorage.getItem("token");
 

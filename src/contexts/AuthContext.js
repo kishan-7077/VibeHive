@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { View, ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { API_URL } from "@env";
 
 const AuthContext = createContext();
 
@@ -30,13 +31,10 @@ export const AuthProvider = ({ children }) => {
 	// Login function
 	const login = async (email, password) => {
 		try {
-			const response = await axios.post(
-				"http://192.168.1.15:5000/users/login",
-				{
-					email,
-					password,
-				}
-			);
+			const response = await axios.post(`${API_URL}/users/login`, {
+				email,
+				password,
+			});
 			const { token } = response.data;
 			await AsyncStorage.setItem("token", token);
 			setUserToken({ token });
@@ -57,14 +55,11 @@ export const AuthProvider = ({ children }) => {
 				return null;
 			}
 
-			const response = await axios.get(
-				"http://192.168.1.15:5000/users/profile",
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				}
-			);
+			const response = await axios.get(`${API_URL}/users/profile`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
 
 			const userData = response.data.user;
 			// console.log(userData);
@@ -87,14 +82,11 @@ export const AuthProvider = ({ children }) => {
 				return null;
 			}
 
-			const response = await axios.get(
-				"http://192.168.1.15:5000/users/profile",
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				}
-			);
+			const response = await axios.get(`${API_URL}/users/profile`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
 
 			const posts = response.data.posts;
 			console.log(response.data);
@@ -114,7 +106,7 @@ export const AuthProvider = ({ children }) => {
 		console.log(profileImage);
 
 		try {
-			await axios.post("http://192.168.1.15:5000/users/signup", {
+			await axios.post(`${API_URL}/users/signup`, {
 				name,
 				email,
 				password,

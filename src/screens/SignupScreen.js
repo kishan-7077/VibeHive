@@ -15,6 +15,7 @@ import { useAuth } from "../contexts/AuthContext"; // Assuming these methods exi
 import { TextInput, Button } from "react-native-paper"; // Import React Native Paper components
 import * as ImagePicker from "expo-image-picker"; // Import Image Picker
 import axios from "axios"; // Make sure axios is imported
+import { API_URL } from "@env";
 
 // Validation Schema
 const SignupSchema = Yup.object().shape({
@@ -80,7 +81,7 @@ const SignupScreen = () => {
 
 				// Upload the image to your server or cloud service here
 				const imageResponse = await axios.post(
-					"http://192.168.1.15:5000/users/upload-profile-image",
+					`${API_URL}/users/upload-profile-image`,
 					formData,
 					{
 						headers: {

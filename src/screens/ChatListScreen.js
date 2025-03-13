@@ -12,6 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
+import { API_URL } from "@env";
 
 const ChatListScreen = () => {
 	const { getUser } = useAuth();
@@ -28,7 +29,7 @@ const ChatListScreen = () => {
 			const userId = userResponse._id;
 			setCurrentUser(userId);
 
-			const response = await axios.get("http://192.168.1.15:5000/users/", {
+			const response = await axios.get(`${API_URL}/users/`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
@@ -44,7 +45,7 @@ const ChatListScreen = () => {
 			const convos = {};
 			for (const user of filteredUsers) {
 				const messagesResponse = await axios.get(
-					`http://192.168.1.15:5000/messages/${userId}/${user._id}`,
+					`${API_URL}/messages/${userId}/${user._id}`,
 					{
 						headers: {
 							Authorization: `Bearer ${token}`,

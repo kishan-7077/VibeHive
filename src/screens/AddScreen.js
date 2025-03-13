@@ -14,6 +14,7 @@ import * as ImagePicker from "expo-image-picker";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios"; // For API calls
 import { useAuth } from "../contexts/AuthContext";
+import { API_URL } from "@env";
 
 const AddScreen = () => {
 	const [image, setImage] = useState(null);
@@ -92,15 +93,11 @@ const AddScreen = () => {
 		formData.append("owner", user._id);
 
 		try {
-			const response = await axios.post(
-				"http://192.168.1.15:5000/posts/add-post",
-				formData,
-				{
-					headers: {
-						"Content-Type": "multipart/form-data",
-					},
-				}
-			);
+			const response = await axios.post(`${API_URL}/posts/add-post`, formData, {
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			});
 
 			if (response.status === 201) {
 				alert("Photo posted successfully!");

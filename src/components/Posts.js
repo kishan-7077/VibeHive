@@ -11,6 +11,7 @@ import { FontAwesome, Feather, Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigation } from "@react-navigation/native";
+import { API_URL } from "@env";
 
 const Posts = ({ post }) => {
 	const { getUser } = useAuth();
@@ -41,13 +42,10 @@ const Posts = ({ post }) => {
 				return alert("You must be logged in to like a post.");
 			}
 
-			const response = await axios.post(
-				"http://192.168.1.3:5000/posts/like-post",
-				{
-					postId: post._id,
-					owner: user._id,
-				}
-			);
+			const response = await axios.post(`${API_URL}/posts/like-post`, {
+				postId: post._id,
+				owner: user._id,
+			});
 
 			if (response.data.post) {
 				setHasLiked(!hasLiked);

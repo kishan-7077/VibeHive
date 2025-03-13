@@ -12,6 +12,7 @@ import Stories from "../components/Stories";
 import Posts from "../components/Posts";
 import { useAuth } from "../contexts/AuthContext";
 import axios from "axios";
+import { API_URL } from "@env";
 
 const HomeScreen = ({ navigation }) => {
 	const { logout, getUser } = useAuth();
@@ -47,9 +48,7 @@ const HomeScreen = ({ navigation }) => {
 	useEffect(() => {
 		const fetchPosts = async () => {
 			try {
-				const response = await axios.get(
-					"http://192.168.1.15:5000/posts/get-posts"
-				);
+				const response = await axios.get(`${API_URL}/posts/get-posts`);
 				setPosts(response.data);
 			} catch (error) {
 				console.error("error loading posts", error);
@@ -62,9 +61,7 @@ const HomeScreen = ({ navigation }) => {
 	const onRefresh = async () => {
 		setRefreshing(true);
 		try {
-			const response = await axios.get(
-				"http://192.168.1.15:5000/posts/get-posts"
-			);
+			const response = await axios.get(`${API_URL}/posts/get-posts`);
 			setPosts(response.data);
 		} catch (error) {
 			console.error("Error refreshing posts", error);
