@@ -3,17 +3,6 @@
 
 VibeHive is a social media app that allows users to connect with others, share content, and interact in real-time. It includes features like logging in, signing up with email verification, uploading posts and images, following users, chatting in real-time, and more. 🌟
 
-## 🎥 Demonstration Video
-
-Check out VibeHive in action! 🎬
-
-<div align="center">
-  <video width="600" controls>
-    <source src="./assets/screenshots/vibehiveVideo.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div>
-
 ## Features
 
 - **User Authentication 🔑**: 
